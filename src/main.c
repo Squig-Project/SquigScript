@@ -29,6 +29,8 @@ void parse_string(const char *str)
         }
 
         int *val_buffer = (int *)malloc(sizeof(int));
+        *val_buffer = 0;
+
         char *val_pos = strstr(token, "val");
         if (val_buffer && val_pos != NULL) 
         {
@@ -37,8 +39,21 @@ void parse_string(const char *str)
             memcpy(val_buffer, &value, sizeof(value));
         }
 
-        
+        char *incr_pos = strchr(token, '+');
+        if (incr_pos != NULL) 
+        {
+            (*val_buffer)++;
+        }
 
+        char *decr_pos = strchr(token, '-');
+        if (decr_pos != NULL) 
+        {
+            (*val_buffer)--;
+        }
+
+        fprintf(stdout, "%d", *val_buffer);
+
+        free(val_buffer);
         token = strtok(NULL, "{}");
     }
 
@@ -47,6 +62,6 @@ void parse_string(const char *str)
 
 int main(void) 
 {
-    parse_string("{val 5}");
+    parse_string("{val 9 }");
     return 0;
 }
