@@ -1,0 +1,2 @@
+# SquigScript
+C scripting engine
