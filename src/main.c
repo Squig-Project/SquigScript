@@ -1,7 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include<dlfcn.h>
+#include<windows.h>
 
 void parse_string(const char *str) 
 {
@@ -21,14 +21,24 @@ void parse_string(const char *str)
         {
             fprintf(stdout, "%s\n", print_pos + strlen("print "));
         }
-
+		
+		/*
         char *load_pos = strstr(token, "load");
         if (load_pos != NULL) 
         {
-            // later
+			char *module_pos = load_pos + "load ";
+			
+			HMODULE dll_handle = LoadLibraryA(module_pos);
+			if (dll_handle == NULL) 
+			{
+				return;
+			}
+			
+			FARPROC func_ptr = GetProcAddress(dll_handle, load_pos + module_pos);
         }
+		*/
 
-        int *val_buffer = (int *)malloc(sizeof(int));
+        int *val_buffer = (int *)malloc(sizeof(int) * 1);
         *val_buffer = 0;
 
         char *val_pos = strstr(token, "val");
